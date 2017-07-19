@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,6 +15,8 @@ import { ListingComponent } from './components/listing/listing.component';
 import { AddListingComponent } from './components/add-listing/add-listing.component';
 import { EditListingComponent } from './components/edit-listing/edit-listing.component';
 
+// services
+import {FirebaseService} from './services/firebase.service';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -34,9 +39,10 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AngularFireModule.initializeApp(environment.firebase, 'my-listings-application'),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [FirebaseService, AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

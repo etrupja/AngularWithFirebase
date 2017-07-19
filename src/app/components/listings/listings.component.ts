@@ -1,3 +1,4 @@
+import { FirebaseService } from '../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listings.component.css']
 })
 export class ListingsComponent implements OnInit {
-
-  constructor() { }
+  listings: any;
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
+    this.firebaseService.getListings().subscribe(listings => {
+      console.log(listings);
+      this.listings = listings;
+    });
   }
 
 }
